@@ -89,6 +89,12 @@ namespace App_Project
                 case "INDUSTRY":
                     view = new IndustryView();
                     break;
+                case "BRAND":
+                    view = new BrandView();
+                    break;
+                case "DATE":
+                    view = new DateImpressionView();
+                    break;
                 default:
                     throw new ArgumentException("Can't recognize specified view name", "viewName");
             }

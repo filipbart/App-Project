@@ -19,6 +19,12 @@
         <DataTemplate DataType="{x:Type local:IndustryView}">
             <local:IndustryView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type local:BrandView}">
+            <local:BrandView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:DateImpressionView}">
+            <local:DateImpressionView />
+        </DataTemplate>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="35" />
@@ -153,12 +159,13 @@
                 </ListViewItem>
                 <ListViewItem Height="159" BorderBrush="#FF242425">
                     <TextBlock FontSize="50" Foreground="White" FontFamily="/App Project;component/Fonts/#ONE DAY">
-                <Run Text="Brand"/>
+                        BRAND
                     </TextBlock>
                 </ListViewItem>
                 <ListViewItem Height="165" BorderBrush="#FF242425">
                     <TextBlock FontSize="35" Foreground="White" FontFamily="/App Project;component/Fonts/#ONE DAY" Height="78" TextAlignment="Center">
-                <Run Text="Date &#x0a; Impression" />
+                        DATE <LineBreak /> 
+                        IMPRESSION
                     </TextBlock>
                 </ListViewItem>
             </ListView>
