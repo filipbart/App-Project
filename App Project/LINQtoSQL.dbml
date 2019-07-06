@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ProjectBase" Class="LINQtoSQLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=&quot;(LocalDb)\Pivot Creator&quot;;Initial Catalog=ProjectBase;Integrated Security=True" SettingsObjectName="App_Project.Properties.Settings" SettingsPropertyName="ProjectBaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Brand" Member="Brand">
+    <Type Name="Brand">
+      <Column Name="Brand_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="brandName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="bOwner_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="BrandOwner_Brand" Member="BrandOwner" ThisKey="bOwner_id" OtherKey="BrandOwner_id" Type="BrandOwner" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BrandOwner" Member="BrandOwner">
+    <Type Name="BrandOwner">
+      <Column Name="BrandOwner_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="brandOwner" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="BrandOwner_Brand" Member="Brand" ThisKey="BrandOwner_id" OtherKey="bOwner_id" Type="Brand" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Impression" Member="Impression">
+    <Type Name="Impression">
+      <Column Name="impression" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="impressionType" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Industry" Member="Industry">
+    <Type Name="Industry">
+      <Column Name="industry" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="subIndustry" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="subIndustry2" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="subIndustry3" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="subIndustry4" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.xDate" Member="xDate">
+    <Type Name="xDate">
+      <Column Name="xDate" Member="xDate1" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
