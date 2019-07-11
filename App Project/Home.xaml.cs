@@ -20,30 +20,92 @@ namespace App_Project
     /// </summary>
     public partial class Home : UserControl {
 
+        IndustryView industryViewClass = new IndustryView();
+
         LINQtoSQLDataContext dc = new LINQtoSQLDataContext(
             Properties.Settings.Default.ProjectBaseConnectionString);
     
         public Home()
         {
             InitializeComponent();
-
-            
-
-            //string connection = "SERVER=(LocalDb)\Pivot Creator;DATABASE=P ";
         }
 
         private void ViewButton_Click(object sender, RoutedEventArgs e)
         {
-            var data =
-                from brand in dc.Brand
-                from brandO in dc.BrandOwner
-                where brand.brandName == "Audi" && brand.bOwner_id == brandO.BrandOwner_id
-                select new
+            List<ChosenItems> chosenItems = industryViewClass.IndustryList;
+           foreach (ChosenItems item in chosenItems)
+           {
+               if (chosenItems.Count == 1)
+               {
+                    if (item.SubIndustry == null)
+                    {
+                        var data =
+                             from industry in dc.Industry
+                             where industry.industry == item.Industry
+                             select industry;
+                        if (dc.DatabaseExists()) DataGrid.ItemsSource = data.ToList();
+                    }
+                    else
+                    {
+                        if (item.SubIndustry2 == null)
+                        {
+                            var data =
+                                 from industry in dc.Industry
+                                 where industry.industry == item.Industry 
+                                    && industry.subIndustry == item.SubIndustry
+                                 select industry;
+                            if (dc.DatabaseExists()) DataGrid.ItemsSource = data.ToList();
+                        }
+                        else
+                        {
+                            if (item.SubIndustry3 == null)
+                            {
+                                var data =
+                                    from industry in dc.Industry
+                                    where industry.industry == item.Industry 
+                                        && industry.subIndustry == item.SubIndustry 
+                                        && industry.subIndustry2 == item.SubIndustry2
+                                    select industry;
+                                if (dc.DatabaseExists()) DataGrid.ItemsSource = data.ToList();
+                            }
+                            else
+                            {
+                                var data =
+                                    from industry in dc.Industry
+                                    where industry.industry == item.Industry
+                                        && industry.subIndustry == item.SubIndustry
+                                        && industry.subIndustry2 == item.SubIndustry2
+                                        && industry.subIndustry3 == item.SubIndustry3
+                                    select industry;
+                                if (dc.DatabaseExists()) DataGrid.ItemsSource = data.ToList();
+                            }
+                        }
+                    }
+                }
+                else if (chosenItems.Count > 1)
                 {
-                    brand.brandName,
-                    brandO.brandOwner
-                };
-            if (dc.DatabaseExists()) DataGrid.ItemsSource = data.ToList();
+                    if (item.SubIndustry == null)
+                    {
+                       
+                    }
+                }
+
+        }
+
+        //  GetList();
+
+    }
+
+        public void GetList()
+        {
+            List<ChosenItems> chosenItems = industryViewClass.IndustryList;
+            //DataGrid.ItemsSource = null;
+            //DataGrid.ItemsSource = chosenItems;
+            foreach(ChosenItems item in chosenItems)
+            {
+                MessageBox.Show(item.Industry);
+            }
+            
         }
     }
 }

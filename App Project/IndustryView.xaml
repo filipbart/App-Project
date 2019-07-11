@@ -6,11 +6,129 @@
              xmlns:local="clr-namespace:App_Project"
              mc:Ignorable="d" 
              Width="1000" Height="640">
-    <Grid>
+    <UserControl.Resources>
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="ColumnWidth" Value="Auto"/>
+            <Setter Property="CanUserReorderColumns" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserSortColumns" Value="False"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Margin" Value="1,0,3,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Background" Value="#FF4D4848"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontWeight" Value="Light"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background" Value="{x:Null}"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridCell}">
+            
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FF978D8D"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="White"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive"
+                                            Value="False" />
+                                    <Condition Property="IsSelected"
+                                            Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background"
+                                    TargetName="Bd"
+                                    Value="#FF666666" />
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="White"/>
+                                
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive"
+                                            Value="True" />
+                                    <Condition Property="IsSelected"
+                                            Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background"
+                                    TargetName="Bd"
+                                    Value="#FFC3BFBD" />
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="#FFDED9D9"/>
+                                <Setter Property="TextBlock.Foreground" TargetName="Bd" Value="#FF3A3939"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Guzik" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="#FFAEA6A6" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF2C2B2B"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    
+        <Grid>
         <Label Content="Industry" Foreground="White" HorizontalAlignment="Left" Height="39" Margin="10,10,0,0" VerticalAlignment="Top" Width="84" FontSize="20"/>
-        <ListBox x:Name="IndustryListBox" HorizontalAlignment="Left" Height="249" Margin="118,93,0,0" VerticalAlignment="Top" Width="795">
+        <ListBox x:Name="IndustryListBox" SelectionChanged="IndustryListBox_SelectionChanged" Height="110" Margin="118,93,0,0" VerticalAlignment="Top" Width="401" Foreground="White" Background="Transparent" HorizontalAlignment="Left" >
             <!-- z bazy -->
         </ListBox>
+        <ListBox x:Name="SubIndustryListBox" SelectionChanged="SubIndustryListBox_SelectionChanged" HorizontalAlignment="Left" Height="110" Margin="118,226,0,0" VerticalAlignment="Top" Width="401" Foreground="White" Background="Transparent" >
+            <!-- z bazy -->
+        </ListBox>
+        <ListBox x:Name="SubIndustryListBox2" SelectionChanged="SubIndustryListBox2_SelectionChanged" HorizontalAlignment="Left" Height="110" Margin="118,362,0,0" VerticalAlignment="Top" Width="401" Foreground="White" Background="Transparent" >
+            <!-- z bazy -->
+        </ListBox>
+        <ListBox x:Name="SubIndustryListBox3" HorizontalAlignment="Left" Height="110" Margin="118,497,0,0" VerticalAlignment="Top" Width="401" Foreground="White" Background="Transparent" >
+            <!-- z bazy -->
+        </ListBox>
+        <Label Content="Industry" Foreground="White" FontSize="15" HorizontalAlignment="Left" Height="35" Margin="16,93,0,0" VerticalAlignment="Top" Width="97"/>
+        <Label Content="SubIndustry" Foreground="White" FontSize="15" HorizontalAlignment="Left" Height="35" Margin="10,226,0,0" VerticalAlignment="Top" Width="103"/>
+        <Label Content="SubIndustry2" Foreground="White" FontSize="15" HorizontalAlignment="Left" Height="35" Margin="10,362,0,0" VerticalAlignment="Top" Width="103"/>
+        <Label Content="SubIndustry3" Foreground="White" FontSize="15" HorizontalAlignment="Left" Height="35" Margin="10,497,0,0" VerticalAlignment="Top" Width="103"/>
+        <DataGrid x:Name="ChosenIndustry" HorizontalAlignment="Left" Height="439" Margin="662,93,0,0" VerticalAlignment="Top" Width="319" BorderBrush="#FFABADB3" Foreground="White" Background="Transparent" HeadersVisibility="Column" >
+            <!-- z list po lewej -->
+        </DataGrid>
+        <Label Content="Chosen Industry" Foreground="White" FontSize="15" HorizontalAlignment="Left" Height="48" Margin="539,93,0,0" VerticalAlignment="Top" Width="118"/>
+        <Button Content="Add" Click="AddItem" Style="{StaticResource Guzik}" Height="45" Margin="691,562,0,0" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Button Content="Remove" Click="RemoveItem" Style="{StaticResource Guzik}" Height="45" Margin="865,562,0,0" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
     </Grid>
 </UserControl>

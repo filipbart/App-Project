@@ -170,7 +170,7 @@
                 </ListViewItem>
             </ListView>
         </Grid>
-        <Grid Grid.Column="1" Margin="10" Grid.Row="1" Height="640" Width="1000">
+        <Grid Grid.Column="1" Margin="10" Grid.Row="1" Height="auto" Width="auto">
             <Grid Name="MainGrid" HorizontalAlignment="Left" VerticalAlignment="Top" />
         </Grid>
     </Grid>
