@@ -8,8 +8,10 @@ namespace App_Project
     {
         readonly Action<object> _execute;
         readonly Predicate<object> _canExecute;
+        private Action addItemExecute;
+        private Func<bool> canExecuteAdd;
 
-        public RelayCommand(Action<object> execute)
+        public RelayCommand(Action<object> execute, object canExecuteAdd)
             : this(execute, null)
         {
         }
@@ -21,6 +23,12 @@ namespace App_Project
 
             _execute = execute;
             _canExecute = canExecute;
+        }
+
+        public RelayCommand(Action addItemExecute, Func<bool> canExecuteAdd)
+        {
+            this.addItemExecute = addItemExecute;
+            this.canExecuteAdd = canExecuteAdd;
         }
 
         [DebuggerStepThrough]
