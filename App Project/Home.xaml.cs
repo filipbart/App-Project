@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Runtime.Caching;
+using System.Collections;
 
 namespace App_Project
 {
@@ -20,30 +24,82 @@ namespace App_Project
     /// </summary>
     public partial class Home : UserControl {
 
+        IndustryView industryViewClass = new IndustryView();
+
         LINQtoSQLDataContext dc = new LINQtoSQLDataContext(
             Properties.Settings.Default.ProjectBaseConnectionString);
-    
+
+
         public Home()
         {
             InitializeComponent();
-
             
-
-            //string connection = "SERVER=(LocalDb)\Pivot Creator;DATABASE=P ";
         }
 
         private void ViewButton_Click(object sender, RoutedEventArgs e)
         {
-            var data =
-                from brand in dc.Brand
-                from brandO in dc.BrandOwner
-                where brand.brandName == "Audi" && brand.bOwner_id == brandO.BrandOwner_id
-                select new
+            List<ChosenItems> chosenItems = industryViewClass.IndustryList;
+            var item = chosenItems.ElementAt(0);
+            if (chosenItems.Count == 1)
+            {
+                if (item.SubIndustry == null)
                 {
-                    brand.brandName,
-                    brandO.brandOwner
-                };
-            if (dc.DatabaseExists()) DataGrid.ItemsSource = data.ToList();
+                    var data = dc.Industry.Where(x => x.industry == item.Industry);
+                    showList(data);
+                }
+                else if (item.SubIndustry != null)
+                {
+                    var data = dc.Industry.Where(x => x.industry == item.Industry)
+                    .Where(x => x.subIndustry == item.SubIndustry);
+                    showList(data);
+                }
+                if (item.SubIndustry2 != null)
+                {
+                    var data = dc.Industry.Where(x => x.industry == item.Industry)
+                    .Where(x => x.subIndustry == item.SubIndustry)
+                    .Where(x => x.subIndustry2 == item.SubIndustry2);
+                    showList(data);
+                }
+                if (item.SubIndustry3 != null)
+                {
+                    var data = dc.Industry.Where(x => x.industry == item.Industry)
+                    .Where(x => x.subIndustry == item.SubIndustry)
+                    .Where(x => x.subIndustry2 == item.SubIndustry2)
+                    .Where(x => x.subIndustry3 == item.SubIndustry3);
+                    showList(data);
+                }
+            }
+            else if (chosenItems.Count > 1)
+            {
+                moreItems();
+            }
+        }
+
+        private void moreItems()
+        {
+            List<ChosenItems> chosenItems = industryViewClass.IndustryList;
+        }
+
+        private void showList(IQueryable<Industry> data)
+        {
+            if (dc.DatabaseExists())
+            {
+                DataGrid.ItemsSource = null;
+                DataGrid.ItemsSource = data.ToList();
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            List<ChosenItems> chosenItems = industryViewClass.IndustryList;
+            var i = chosenItems.ElementAt(1);
+            MessageBox.Show(i.Industry.ToString());
+            /*foreach (ChosenItems i in chosenItems)
+            {
+                MessageBox.Show(i.Industry);
+            }*/
+
+
         }
     }
 }
