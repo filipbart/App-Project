@@ -71,13 +71,79 @@ namespace App_Project
             }
             else if (chosenItems.Count > 1)
             {
-                moreItems();
+                if (item.SubIndustry == null)
+                {
+                    var data = dc.Industry.Where(x => x.industry == item.Industry);
+                    moreItems(data);
+                }
+                else if (item.SubIndustry != null)
+                {
+                    var data = dc.Industry.Where(x => x.industry == item.Industry)
+                    .Where(x => x.subIndustry == item.SubIndustry);
+                    moreItems(data);
+                }
+                if (item.SubIndustry2 != null)
+                {
+                    var data = dc.Industry.Where(x => x.industry == item.Industry)
+                    .Where(x => x.subIndustry == item.SubIndustry)
+                    .Where(x => x.subIndustry2 == item.SubIndustry2);
+                    moreItems(data);
+                }
+                if (item.SubIndustry3 != null)
+                {
+                    var data = dc.Industry.Where(x => x.industry == item.Industry)
+                    .Where(x => x.subIndustry == item.SubIndustry)
+                    .Where(x => x.subIndustry2 == item.SubIndustry2)
+                    .Where(x => x.subIndustry3 == item.SubIndustry3);
+                    moreItems(data);
+                }
             }
         }
 
-        private void moreItems()
+        private void moreItems(IQueryable<Industry> data)
         {
             List<ChosenItems> chosenItems = industryViewClass.IndustryList;
+            var inner = PredicateBuilder.False<Industry>();
+            var outer = PredicateBuilder.True<Industry>();
+            for (int i = 1; i < chosenItems.Count; i++ )
+            {
+                var item = chosenItems.ElementAt(i);
+                if (item.SubIndustry == null)
+                {
+                    outer = outer.And(x => x.industry == item.Industry);
+                    inner = inner.Or(outer);
+                    data = data.Where(inner);
+                    showList(data);
+                }
+                else if (item.SubIndustry != null)
+                {
+                    inner = inner.Or(x => x.industry == item.Industry);
+                    outer = outer.And(x => x.subIndustry == item.SubIndustry);
+                    outer = outer.And(inner);
+                    data = data.Where(outer);
+                    showList(data);
+                }
+                if (item.SubIndustry2 != null)
+                {
+                    inner = inner.Or(x => x.industry == item.Industry);
+                    outer = outer.And(x => x.subIndustry == item.SubIndustry);
+                    outer = outer.And(x => x.subIndustry2 == item.SubIndustry2);
+                    outer = outer.And(inner);
+                    data = data.Where(outer);
+                    showList(data);
+                }
+                if (item.SubIndustry3 != null)
+                {
+                    inner = inner.Or(x => x.industry == item.Industry);
+                    outer = outer.And(x => x.subIndustry == item.SubIndustry);
+                    outer = outer.And(x => x.subIndustry2 == item.SubIndustry2);
+                    outer = outer.And(x => x.subIndustry3 == item.SubIndustry3);
+                    outer = outer.And(inner);
+                    data = data.Where(outer);
+                    showList(data);
+                }
+            }
+            
         }
 
         private void showList(IQueryable<Industry> data)
@@ -92,8 +158,8 @@ namespace App_Project
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             List<ChosenItems> chosenItems = industryViewClass.IndustryList;
-            var i = chosenItems.ElementAt(1);
-            MessageBox.Show(i.Industry.ToString());
+            var i = chosenItems.Count;
+            MessageBox.Show(i.ToString());
             /*foreach (ChosenItems i in chosenItems)
             {
                 MessageBox.Show(i.Industry);

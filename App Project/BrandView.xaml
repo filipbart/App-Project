@@ -19,6 +19,7 @@
             <Setter Property="BorderBrush" Value="White"/>
             <Setter Property="Background" Value="#FF4D4848"/>
             <Setter Property="Height" Value="20"/>
+            <Setter Property="MinWidth" Value="50" />
             <Setter Property="FontWeight" Value="Light"/>
         </Style>
         <Style TargetType="{x:Type DataGridRow}">
@@ -113,13 +114,16 @@
             <!-- z bazy -->
         </ListBox>
         <Label Content="Brand Owner" Foreground="White" FontSize="20" HorizontalAlignment="Left" Height="35" Margin="40,346,0,0" VerticalAlignment="Top" Width="127"/>
-        <ListBox x:Name="ChosenBrandItems" Height="406" Margin="672,124,0,0" VerticalAlignment="Top" Width="294" Foreground="White" Background="Transparent" HorizontalAlignment="Left" >
-            <!-- z bazy -->
-        </ListBox>
-        <Button Content="Add"  Style="{StaticResource Guzik}" Height="45" Margin="672,548,0,0" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" />
-        <Button Content="Delete" Style="{StaticResource Guzik}" Height="45" Margin="866,548,0,0" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" />
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="231" Margin="253,257,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="231" Margin="253,534,0,0"/>
+        <DataGrid x:Name="ChosenBrandItems" HorizontalAlignment="Left" Height="408" Margin="662,124,0,0" VerticalAlignment="Top" Width="319" BorderBrush="#FFABADB3" Foreground="White" Background="Transparent" HeadersVisibility="Column" >
+            <!-- z list po lewej -->
+        </DataGrid>
+        <Button Content="Add" Click="Brand_Add" Style="{StaticResource Guzik}" Height="45" Margin="253,254,0,0" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Button Content="Add" Click="BrandOwner_Add" Style="{StaticResource Guzik}" Height="45" Margin="253,521,0,0" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Button Content="Delete" Click="Remove" Style="{StaticResource Guzik}" Height="45" Margin="772,548,0,0" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBox TextChanged="Brands_TextChanged" FontSize="25" HorizontalAlignment="Left" Height="35" TextWrapping="Wrap" Text="{Binding BrandName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="231" Margin="253,184,0,0"/>
+        <TextBox TextChanged="BrandsOwner_TextChanged" FontSize="25" HorizontalAlignment="Left" Height="33" TextWrapping="Wrap" Text="{Binding BrandNameOwner, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="231" Margin="253,445,0,0"/>
         <Label Content="Chosen Brands or Brand Owners" Foreground="White" FontSize="20" HorizontalAlignment="Left" Height="35" Margin="672,84,0,0" VerticalAlignment="Top" Width="294"/>
+        <Label Content="Search brand:" Foreground="White" FontSize="20" HorizontalAlignment="Left" Height="35" Margin="253,124,0,0" VerticalAlignment="Top" Width="158"/>
+        <Label Content="Search brand owner:" Foreground="White" FontSize="20" HorizontalAlignment="Left" Height="35" Margin="253,386,0,0" VerticalAlignment="Top" Width="231"/>
     </Grid>
 </UserControl>
