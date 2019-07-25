@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace App_Project
 {
@@ -117,7 +118,6 @@ namespace App_Project
             string subindustry;
             string subindustry2;
             string subindustry3;
-            string subindustry4 = null;
             if(SubIndustryListBox.SelectedIndex < 0)
             {
                 subindustry = null;
@@ -142,7 +142,10 @@ namespace App_Project
             {
                 subindustry3 = SubIndustryListBox3.SelectedItem.ToString();
             }
-            chosenItems.Add(new ChosenItems() { Industry = industry, SubIndustry = subindustry, SubIndustry2 = subindustry2, SubIndustry3 = subindustry3, SubIndustry4 = subindustry4 });
+            if (subindustry == null) chosenItems.Add(new ChosenItems() { Industry = industry });
+            else if (subindustry2 == null) chosenItems.Add(new ChosenItems() { Industry = industry, SubIndustry = subindustry });
+            else if (subindustry3 == null) chosenItems.Add(new ChosenItems() { Industry = industry, SubIndustry = subindustry, SubIndustry2 = subindustry2 });
+            else chosenItems.Add(new ChosenItems() { Industry = industry, SubIndustry = subindustry, SubIndustry2 = subindustry2, SubIndustry3 = subindustry3 });
             ChosenIndustry.ItemsSource = null;
             ChosenIndustry.ItemsSource = chosenItems;
         }
@@ -160,6 +163,8 @@ namespace App_Project
                 ChosenIndustry.ItemsSource = chosenItems;
             }
         }
+
+        
 
         #endregion
 

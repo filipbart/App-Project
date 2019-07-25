@@ -12,7 +12,6 @@ namespace App_Project
         public string SubIndustry { get; set; }
         public string SubIndustry2 { get; set; }
         public string SubIndustry3 { get; set; }
-        public string SubIndustry4 { get; set; }
 
     }
 }

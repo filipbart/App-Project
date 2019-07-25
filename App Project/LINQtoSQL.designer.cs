@@ -100,11 +100,11 @@ namespace App_Project
 			}
 		}
 		
-		public System.Data.Linq.Table<xDate> xDate
+		public System.Data.Linq.Table<db_main> db_main
 		{
 			get
 			{
-				return this.GetTable<xDate>();
+				return this.GetTable<db_main>();
 			}
 		}
 	}
@@ -518,28 +518,64 @@ namespace App_Project
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.xDate")]
-	public partial class xDate
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.db_main")]
+	public partial class db_main
 	{
 		
-		private System.Nullable<System.DateTime> _xDate1;
+		private System.Nullable<long> _impression;
 		
-		public xDate()
+		private System.Nullable<System.DateTime> _xDate;
+		
+		private string _impressionType;
+		
+		public db_main()
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="xDate", Storage="_xDate1", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> xDate1
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_impression", DbType="BigInt")]
+		public System.Nullable<long> impression
 		{
 			get
 			{
-				return this._xDate1;
+				return this._impression;
 			}
 			set
 			{
-				if ((this._xDate1 != value))
+				if ((this._impression != value))
 				{
-					this._xDate1 = value;
+					this._impression = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_xDate", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> xDate
+		{
+			get
+			{
+				return this._xDate;
+			}
+			set
+			{
+				if ((this._xDate != value))
+				{
+					this._xDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_impressionType", DbType="NVarChar(255)")]
+		public string impressionType
+		{
+			get
+			{
+				return this._impressionType;
+			}
+			set
+			{
+				if ((this._impressionType != value))
+				{
+					this._impressionType = value;
 				}
 			}
 		}

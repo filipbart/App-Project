@@ -10,6 +10,6 @@
         <Label Content="Home Page" Foreground="White" HorizontalAlignment="Left" Height="39" Margin="10,10,0,0" VerticalAlignment="Top" Width="116" FontSize="20"/>
         <DataGrid Name="DataGrid" Height="144" Margin="46,197,46,299" />
         <Button x:Name="ViewButton" Content="Podgląd" Click="ViewButton_Click" Margin="46,434,720,131" />
-        <Button Content="Test" Click="Button_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="245" Margin="399,453,0,0" Height="78"/>
+        <Button Content="Test" HorizontalAlignment="Left" VerticalAlignment="Top" Width="245" Margin="399,453,0,0" Height="78"/>
     </Grid>
 </UserControl>
