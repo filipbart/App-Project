@@ -174,5 +174,11 @@ namespace App_Project
         }
 
         #endregion
+
+
+        public List<ChosenBrands> BrandsList
+        {
+            get { return chosenBrands; }
+        }
     }
 }

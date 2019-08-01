@@ -26,6 +26,8 @@ namespace App_Project
     {
 
         IndustryView industryViewClass = new IndustryView();
+        BrandView brandViewClass = new BrandView();
+        DateImpressionView dateImpressionViewClass = new DateImpressionView();
 
         LINQtoSQLDataContext dc = new LINQtoSQLDataContext(
             Properties.Settings.Default.ProjectBaseConnectionString);
@@ -34,14 +36,25 @@ namespace App_Project
         public Home()
         {
             InitializeComponent();
-
         }
 
-        private void ViewButton_Click(object sender, RoutedEventArgs e)
+        private void Show_Industry(object sender, RoutedEventArgs e)
         {
             //DziałaWPołowie();
             Działa();
         }
+
+        private void Show_Brand(object sender, RoutedEventArgs e)
+        {
+            ShowBrands();
+        }
+
+        private void Show_DateAndImpressionType(object sender, RoutedEventArgs e)
+        {
+            ShowDateAndImpressionType();
+        }
+
+        #region Show Industry
         private void DziałaWPołowie()
         {
             List<ChosenItems> chosenItems = industryViewClass.IndustryList;
@@ -69,11 +82,11 @@ namespace App_Project
             var data = from p in dc.Industry select p;
             var inner = PredicateBuilder.False<Industry>();
             var outer = PredicateBuilder.True<Industry>();
-            var firstI = chosenItems.ElementAt(0);
-            outer = outer.And(p => firstI.Industry == p.industry);
-            if (firstI.SubIndustry != null) outer = outer.And(p => firstI.SubIndustry == p.subIndustry);
-            if (firstI.SubIndustry2 != null) outer = outer.And(p => firstI.SubIndustry2 == p.subIndustry2);
-            if (firstI.SubIndustry3 != null) outer = outer.And(p => firstI.SubIndustry3 == p.subIndustry3);
+            var firstItem = chosenItems.ElementAt(0);
+            outer = outer.And(p => firstItem.Industry == p.industry);
+            if (firstItem.SubIndustry != null) outer = outer.And(p => firstItem.SubIndustry == p.subIndustry);
+            if (firstItem.SubIndustry2 != null) outer = outer.And(p => firstItem.SubIndustry2 == p.subIndustry2);
+            if (firstItem.SubIndustry3 != null) outer = outer.And(p => firstItem.SubIndustry3 == p.subIndustry3);
             if (chosenItems.Count > 1)
             {
                 for (int i = 1; i < chosenItems.Count; i++)
@@ -91,7 +104,7 @@ namespace App_Project
                 if (dc.DatabaseExists())
                 {
                     DataGrid.ItemsSource = null;
-                    DataGrid.ItemsSource = data.ToList();
+                    DataGrid.ItemsSource = data;
                 }
             }
             else
@@ -104,5 +117,131 @@ namespace App_Project
                 }
             }
         }
+
+        #endregion
+
+        #region Show Brands
+        private void ShowBrands()
+        {
+            List<ChosenBrands> chosenBrands = brandViewClass.BrandsList;
+            var ChosenBrands = chosenBrands.Select(c => c.Brand);
+            var ChosenBrandsOwner = chosenBrands.Select(c => c.BrandOwner);
+            ChosenBrands = ChosenBrands.Where(c => c != null);
+            ChosenBrandsOwner = ChosenBrandsOwner.Where(c => c != null);
+            var BrandOwnerId = dc.BrandOwner.Select(b => b.BrandOwner_id);
+            if (ChosenBrands.Any() && ChosenBrandsOwner.Any())
+            {
+                var data =
+                    from Br in dc.Brand
+                    from BrO in dc.BrandOwner
+                    where (ChosenBrands.Contains(Br.brandName) || ChosenBrandsOwner.Contains(BrO.brandOwner)) && Br.bOwner_id == BrO.BrandOwner_id
+                    select new
+                    {
+                        Br.Brand_id,
+                        Br.brandName,
+                        Br.bOwner_id,
+                        BrO.brandOwner
+                    };
+                if (dc.DatabaseExists())
+                {
+                    DataGrid.ItemsSource = null;
+                    DataGrid.ItemsSource = data;
+                }
+            }
+            else if(ChosenBrands.Any() && !ChosenBrandsOwner.Any())
+            {
+                var data =
+                    from Br in dc.Brand
+                    from BrO in dc.BrandOwner
+                    where (ChosenBrands.Contains(Br.brandName) && Br.bOwner_id == BrO.BrandOwner_id)
+                    select new
+                    {
+                        Br.Brand_id,
+                        Br.brandName,
+                        Br.bOwner_id
+                    };
+                if (dc.DatabaseExists())
+                {
+                    DataGrid.ItemsSource = null;
+                    DataGrid.ItemsSource = data;
+                }
+            }
+            else
+            {
+                var data = dc.BrandOwner.Where(p => ChosenBrandsOwner.Contains(p.brandOwner));
+                if (dc.DatabaseExists())
+                {
+                    DataGrid.ItemsSource = null;
+                    DataGrid.ItemsSource = data;
+                }
+            }
+        }
+        #endregion
+
+        #region Show Date and ImpressionType
+
+        private void ShowDateAndImpressionType()
+        {
+            string logic = dateImpressionViewClass.GetLogicValue();
+            DateTime? StartDate = dateImpressionViewClass.GetStartDateValue();
+            DateTime? EndDate = dateImpressionViewClass.GetEndDateValue();
+            switch (logic)
+            {
+                case "both":
+                    var data = dc.db_main.Where(m => StartDate <= m.xDate && EndDate >= m.xDate);
+                    ImpressionTypeAdd(data);
+                    break;
+                case "start":
+                    var data2 = dc.db_main.Where(m => StartDate <= m.xDate);
+                    ImpressionTypeAdd(data2);
+                    break;
+                case "end":
+                    var data3 = dc.db_main.Where(m => EndDate >= m.xDate);
+                    ImpressionTypeAdd(data3);
+                    break;
+                case "none":
+                    var data4 = dc.db_main;
+                    ImpressionTypeAdd(data4);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void ImpressionTypeAdd(IQueryable<db_main> data)
+        {
+            string type = dateImpressionViewClass.GetImpressionTypeValue();
+            switch (type)
+            {
+                case "both":
+                    if (dc.DatabaseExists())
+                    {
+                        DataGrid.ItemsSource = null;
+                        DataGrid.ItemsSource = data;
+                    }
+                    break;
+                case "PC":
+                   var  data2 = data.Where(m => m.impressionType == "pc");
+                    if (dc.DatabaseExists())
+                    {
+                        DataGrid.ItemsSource = null;
+                        DataGrid.ItemsSource = data2;
+                    }
+                    break;
+                case "MOBILE":
+                    var data3 = data.Where(m => m.impressionType == "mobile");
+                    if (dc.DatabaseExists())
+                    {
+                        DataGrid.ItemsSource = null;
+                        DataGrid.ItemsSource = data3;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        #endregion
+
     }
 }
