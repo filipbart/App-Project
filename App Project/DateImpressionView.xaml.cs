@@ -34,7 +34,6 @@ namespace App_Project
             InitializeComponent();
             SetPickerDates();
             generateStringDates();
-            //LogicDates();
         }
 
         private void SetPickerDates()
@@ -63,7 +62,6 @@ namespace App_Project
         {
             var date = StartDate.SelectedDate;
             SetStartDateValue(date);
-            LogicDates();
         }
 
 
@@ -71,7 +69,6 @@ namespace App_Project
         {
             var date = EndDate.SelectedDate;
             SetEndDateValue(date);
-            LogicDates();
         }
 
         public void LogicDates()
@@ -104,20 +101,27 @@ namespace App_Project
 
         public void ImpressionType()
         {
-            if((PC.IsChecked == true) && (MOBILE.IsChecked == true))
+            if (ImpressionTypeGrid.Visibility.ToString() == "Visible")
             {
-                string type = "both";
-                SetImpressionTypeValue(type);
+                if ((PC.IsChecked == true) && (MOBILE.IsChecked == true))
+                {
+                    string type = "both";
+                    SetImpressionTypeValue(type);
+                }
+                else if ((PC.IsChecked == true) && (MOBILE.IsChecked == false))
+                {
+                    string type = "PC";
+                    SetImpressionTypeValue(type);
+                }
+                else if ((PC.IsChecked == false) && (MOBILE.IsChecked == true))
+                {
+                    string type = "MOBILE";
+                    SetImpressionTypeValue(type);
+                }
             }
-            else if ((PC.IsChecked == true) && (MOBILE.IsChecked == false))
+            else
             {
-                string type = "PC";
-                SetImpressionTypeValue(type);
-            }
-            else if ((PC.IsChecked == false) && (MOBILE.IsChecked == true))
-            {
-                string type = "MOBILE";
-                SetImpressionTypeValue(type);
+                SetImpressionTypeValue("PC");
             }
         }
 
@@ -190,13 +194,6 @@ namespace App_Project
         {
             ImpressionType();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ImpressionTypeGrid.Visibility = Visibility.Collapsed;
-            //ImpressionTypeGrid.Visibility = Visibility.Visible;
-        }
-
     }
 }
 

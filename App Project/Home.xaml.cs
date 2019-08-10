@@ -40,8 +40,7 @@ namespace App_Project
 
         private void Show_Industry(object sender, RoutedEventArgs e)
         {
-            //DziałaWPołowie();
-            Działa();
+            ShowIndustries();
         }
 
         private void Show_Brand(object sender, RoutedEventArgs e)
@@ -55,66 +54,59 @@ namespace App_Project
         }
 
         #region Show Industry
-        private void DziałaWPołowie()
-        {
-            List<ChosenItems> chosenItems = industryViewClass.IndustryList;
-            var ChosenIndustries = chosenItems.Select(c => c.Industry);
-            var ChosenSubIndustries = chosenItems.Select(c => c.SubIndustry);
-            var ChosenSubIndustries2 = chosenItems.Select(c => c.SubIndustry2);
-            var ChosenSubIndustries3 = chosenItems.Select(c => c.SubIndustry3);
-            ChosenSubIndustries = ChosenSubIndustries.Where(c => c != null);
-            ChosenSubIndustries2 = ChosenSubIndustries2.Where(c => c != null);
-            ChosenSubIndustries3 = ChosenSubIndustries3.Where(c => c != null);
-            var data = dc.Industry.Where(i => ChosenIndustries.Contains(i.industry));
-            if (ChosenSubIndustries.Any()) data = data.Where(i => ChosenSubIndustries.Contains(i.subIndustry));
-            if (ChosenSubIndustries2.Any()) data = data.Where(i => ChosenSubIndustries2.Contains(i.subIndustry2));
-            if (ChosenSubIndustries3.Any()) data = data.Where(i => ChosenSubIndustries3.Contains(i.subIndustry3));
-            if (dc.DatabaseExists())
-            {
-                DataGrid.ItemsSource = null;
-                DataGrid.ItemsSource = data;
-            }
-        }
 
-        private void Działa()
+        private void ShowIndustries()
         {
             List<ChosenItems> chosenItems = industryViewClass.IndustryList;
-            var data = from p in dc.Industry select p;
-            var inner = PredicateBuilder.False<Industry>();
-            var outer = PredicateBuilder.True<Industry>();
-            var firstItem = chosenItems.ElementAt(0);
-            outer = outer.And(p => firstItem.Industry == p.industry);
-            if (firstItem.SubIndustry != null) outer = outer.And(p => firstItem.SubIndustry == p.subIndustry);
-            if (firstItem.SubIndustry2 != null) outer = outer.And(p => firstItem.SubIndustry2 == p.subIndustry2);
-            if (firstItem.SubIndustry3 != null) outer = outer.And(p => firstItem.SubIndustry3 == p.subIndustry3);
-            if (chosenItems.Count > 1)
+            if (chosenItems.Any())
             {
-                for (int i = 1; i < chosenItems.Count; i++)
+                var data = from p in dc.Industry select p;
+                var inner = PredicateBuilder.False<Industry>();
+                var outer = PredicateBuilder.True<Industry>();
+                var firstItem = chosenItems.ElementAt(0);
+                outer = outer.And(p => firstItem.Industry == p.industry);
+                if (firstItem.SubIndustry != null) outer = outer.And(p => firstItem.SubIndustry == p.subIndustry);
+                if (firstItem.SubIndustry2 != null) outer = outer.And(p => firstItem.SubIndustry2 == p.subIndustry2);
+                if (firstItem.SubIndustry3 != null) outer = outer.And(p => firstItem.SubIndustry3 == p.subIndustry3);
+                if (chosenItems.Count > 1)
                 {
-                    var outer2 = PredicateBuilder.True<Industry>();
-                    var item = chosenItems.ElementAt(i);
-                    outer2 = outer2.And(p => item.Industry == p.industry);
-                    if (item.SubIndustry != null) outer2 = outer2.And(p => item.SubIndustry == p.subIndustry);
-                    if (item.SubIndustry2 != null) outer2 = outer2.And(p => item.SubIndustry2 == p.subIndustry2);
-                    if (item.SubIndustry3 != null) outer2 = outer2.And(p => item.SubIndustry3 == p.subIndustry3);
-                    inner = inner.Or(outer);
-                    inner = inner.Or(outer2);
+                    for (int i = 1; i < chosenItems.Count; i++)
+                    {
+                        var outer2 = PredicateBuilder.True<Industry>();
+                        var item = chosenItems.ElementAt(i);
+                        outer2 = outer2.And(p => item.Industry == p.industry);
+                        if (item.SubIndustry != null) outer2 = outer2.And(p => item.SubIndustry == p.subIndustry);
+                        if (item.SubIndustry2 != null) outer2 = outer2.And(p => item.SubIndustry2 == p.subIndustry2);
+                        if (item.SubIndustry3 != null) outer2 = outer2.And(p => item.SubIndustry3 == p.subIndustry3);
+                        inner = inner.Or(outer);
+                        inner = inner.Or(outer2);
+                    }
+                    data = dc.Industry.Where(inner);
+                    if (dc.DatabaseExists())
+                    {
+                        DataGrid.ItemsSource = null;
+                        DataGrid.ItemsSource = data;
+                    }
                 }
-                data = dc.Industry.Where(inner);
-                if (dc.DatabaseExists())
+                else
                 {
-                    DataGrid.ItemsSource = null;
-                    DataGrid.ItemsSource = data;
+                    data = dc.Industry.Where(outer);
+                    if (dc.DatabaseExists())
+                    {
+                        DataGrid.ItemsSource = null;
+                        DataGrid.ItemsSource = data;
+                    }
                 }
             }
             else
             {
-                data = dc.Industry.Where(outer);
+                var data = from p in dc.Industry select p;
                 if (dc.DatabaseExists())
                 {
                     DataGrid.ItemsSource = null;
                     DataGrid.ItemsSource = data;
                 }
+
             }
         }
 
@@ -124,56 +116,63 @@ namespace App_Project
         private void ShowBrands()
         {
             List<ChosenBrands> chosenBrands = brandViewClass.BrandsList;
-            var ChosenBrands = chosenBrands.Select(c => c.Brand);
-            var ChosenBrandsOwner = chosenBrands.Select(c => c.BrandOwner);
-            ChosenBrands = ChosenBrands.Where(c => c != null);
-            ChosenBrandsOwner = ChosenBrandsOwner.Where(c => c != null);
-            var BrandOwnerId = dc.BrandOwner.Select(b => b.BrandOwner_id);
-            if (ChosenBrands.Any() && ChosenBrandsOwner.Any())
+            if (chosenBrands.Any())
             {
-                var data =
-                    from Br in dc.Brand
-                    from BrO in dc.BrandOwner
-                    where (ChosenBrands.Contains(Br.brandName) || ChosenBrandsOwner.Contains(BrO.brandOwner)) && Br.bOwner_id == BrO.BrandOwner_id
-                    select new
-                    {
-                        Br.Brand_id,
-                        Br.brandName,
-                        Br.bOwner_id,
-                        BrO.brandOwner
-                    };
-                if (dc.DatabaseExists())
+                var ChosenBrands = chosenBrands.Select(c => c.Brand);
+                var ChosenBrandsOwner = chosenBrands.Select(c => c.BrandOwner);
+                ChosenBrands = ChosenBrands.Where(c => c != null);
+                ChosenBrandsOwner = ChosenBrandsOwner.Where(c => c != null);
+                var BrandOwnerId = dc.BrandOwner.Select(b => b.BrandOwner_id);
+                if (ChosenBrands.Any() && ChosenBrandsOwner.Any())
                 {
-                    DataGrid.ItemsSource = null;
-                    DataGrid.ItemsSource = data;
+                    var data =
+                        from Br in dc.Brand
+                        from BrO in dc.BrandOwner
+                        where (ChosenBrands.Contains(Br.brandName) || ChosenBrandsOwner.Contains(BrO.brandOwner)) && Br.bOwner_id == BrO.BrandOwner_id
+                        select new
+                        {
+                            Br.Brand_id,
+                            Br.brandName,
+                            Br.bOwner_id,
+                            BrO.brandOwner
+                        };
+                    if (dc.DatabaseExists())
+                    {
+                        DataGrid.ItemsSource = null;
+                        DataGrid.ItemsSource = data;
+                    }
                 }
-            }
-            else if(ChosenBrands.Any() && !ChosenBrandsOwner.Any())
-            {
-                var data =
-                    from Br in dc.Brand
-                    from BrO in dc.BrandOwner
-                    where (ChosenBrands.Contains(Br.brandName) && Br.bOwner_id == BrO.BrandOwner_id)
-                    select new
-                    {
-                        Br.Brand_id,
-                        Br.brandName,
-                        Br.bOwner_id
-                    };
-                if (dc.DatabaseExists())
+                else if (ChosenBrands.Any() && !ChosenBrandsOwner.Any())
                 {
-                    DataGrid.ItemsSource = null;
-                    DataGrid.ItemsSource = data;
+                    var data =
+                        from Br in dc.Brand
+                        from BrO in dc.BrandOwner
+                        where (ChosenBrands.Contains(Br.brandName) && Br.bOwner_id == BrO.BrandOwner_id)
+                        select new
+                        {
+                            Br.Brand_id,
+                            Br.brandName,
+                            Br.bOwner_id
+                        };
+                    if (dc.DatabaseExists())
+                    {
+                        DataGrid.ItemsSource = null;
+                        DataGrid.ItemsSource = data;
+                    }
+                }
+                else
+                {
+                    var data = dc.BrandOwner.Where(p => ChosenBrandsOwner.Contains(p.brandOwner));
+                    if (dc.DatabaseExists())
+                    {
+                        DataGrid.ItemsSource = null;
+                        DataGrid.ItemsSource = data;
+                    }
                 }
             }
             else
             {
-                var data = dc.BrandOwner.Where(p => ChosenBrandsOwner.Contains(p.brandOwner));
-                if (dc.DatabaseExists())
-                {
-                    DataGrid.ItemsSource = null;
-                    DataGrid.ItemsSource = data;
-                }
+               
             }
         }
         #endregion
@@ -204,6 +203,8 @@ namespace App_Project
                     ImpressionTypeAdd(data4);
                     break;
                 default:
+                    var data5 = dc.db_main;
+                    ImpressionTypeAdd(data5);
                     break;
             }
         }
@@ -237,6 +238,11 @@ namespace App_Project
                     }
                     break;
                 default:
+                    if (dc.DatabaseExists())
+                    {
+                        DataGrid.ItemsSource = null;
+                        DataGrid.ItemsSource = data;
+                    }
                     break;
             }
         }
