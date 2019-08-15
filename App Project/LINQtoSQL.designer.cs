@@ -107,6 +107,14 @@ namespace App_Project
 				return this.GetTable<db_main>();
 			}
 		}
+		
+		public System.Data.Linq.Table<DbAll> DbAll
+		{
+			get
+			{
+				return this.GetTable<DbAll>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Brand")]
@@ -565,6 +573,735 @@ namespace App_Project
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_impressionType", DbType="NVarChar(255)")]
+		public string impressionType
+		{
+			get
+			{
+				return this._impressionType;
+			}
+			set
+			{
+				if ((this._impressionType != value))
+				{
+					this._impressionType = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DbAll")]
+	public partial class DbAll
+	{
+		
+		private string _secondaryBrand;
+		
+		private string _secondaryBrandOwner;
+		
+		private string _brand;
+		
+		private string _subIndustry;
+		
+		private string _industry;
+		
+		private string _brandOwner;
+		
+		private string _subWebsite;
+		
+		private string _website;
+		
+		private string _publisher;
+		
+		private System.Nullable<int> _impressions;
+		
+		private System.Nullable<int> _inscreens;
+		
+		private System.Nullable<System.DateTime> _xDate;
+		
+		private string _contentType;
+		
+		private string _adType;
+		
+		private string _product;
+		
+		private System.Nullable<int> _xMonth;
+		
+		private System.Nullable<int> _xYear;
+		
+		private System.Nullable<int> _xWeek;
+		
+		private System.Nullable<int> _Ad_id;
+		
+		private System.Nullable<int> _Subwebsite_id;
+		
+		private System.Nullable<int> _Product_id;
+		
+		private System.Nullable<int> _SecondaryBrand_id;
+		
+		private System.Nullable<int> _Brand_id;
+		
+		private System.Nullable<int> _BrandOwner_id;
+		
+		private System.Nullable<int> _Subindustry_id;
+		
+		private System.Nullable<int> _SecondaryBrandOwner_id;
+		
+		private System.Nullable<int> _AdType_id;
+		
+		private string _adTypeGroup;
+		
+		private string _isAutopromotion;
+		
+		private string _subIndustry2;
+		
+		private string _subIndustry3;
+		
+		private string _subIndustry4;
+		
+		private string _adURL;
+		
+		private string _adSize;
+		
+		private string _topPublisherForCost;
+		
+		private System.Nullable<double> _cost;
+		
+		private System.Nullable<double> _cost_gross;
+		
+		private string _yearMonth;
+		
+		private string _ad_idAdType_id;
+		
+		private string _impressionType;
+		
+		public DbAll()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_secondaryBrand", DbType="NVarChar(255)")]
+		public string secondaryBrand
+		{
+			get
+			{
+				return this._secondaryBrand;
+			}
+			set
+			{
+				if ((this._secondaryBrand != value))
+				{
+					this._secondaryBrand = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_secondaryBrandOwner", DbType="NVarChar(255)")]
+		public string secondaryBrandOwner
+		{
+			get
+			{
+				return this._secondaryBrandOwner;
+			}
+			set
+			{
+				if ((this._secondaryBrandOwner != value))
+				{
+					this._secondaryBrandOwner = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_brand", DbType="NVarChar(255)")]
+		public string brand
+		{
+			get
+			{
+				return this._brand;
+			}
+			set
+			{
+				if ((this._brand != value))
+				{
+					this._brand = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subIndustry", DbType="NVarChar(255)")]
+		public string subIndustry
+		{
+			get
+			{
+				return this._subIndustry;
+			}
+			set
+			{
+				if ((this._subIndustry != value))
+				{
+					this._subIndustry = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_industry", DbType="NVarChar(255)")]
+		public string industry
+		{
+			get
+			{
+				return this._industry;
+			}
+			set
+			{
+				if ((this._industry != value))
+				{
+					this._industry = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_brandOwner", DbType="NVarChar(255)")]
+		public string brandOwner
+		{
+			get
+			{
+				return this._brandOwner;
+			}
+			set
+			{
+				if ((this._brandOwner != value))
+				{
+					this._brandOwner = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subWebsite", DbType="NVarChar(255)")]
+		public string subWebsite
+		{
+			get
+			{
+				return this._subWebsite;
+			}
+			set
+			{
+				if ((this._subWebsite != value))
+				{
+					this._subWebsite = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_website", DbType="NVarChar(255)")]
+		public string website
+		{
+			get
+			{
+				return this._website;
+			}
+			set
+			{
+				if ((this._website != value))
+				{
+					this._website = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_publisher", DbType="NVarChar(255)")]
+		public string publisher
+		{
+			get
+			{
+				return this._publisher;
+			}
+			set
+			{
+				if ((this._publisher != value))
+				{
+					this._publisher = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_impressions", DbType="Int")]
+		public System.Nullable<int> impressions
+		{
+			get
+			{
+				return this._impressions;
+			}
+			set
+			{
+				if ((this._impressions != value))
+				{
+					this._impressions = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_inscreens", DbType="Int")]
+		public System.Nullable<int> inscreens
+		{
+			get
+			{
+				return this._inscreens;
+			}
+			set
+			{
+				if ((this._inscreens != value))
+				{
+					this._inscreens = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_xDate", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> xDate
+		{
+			get
+			{
+				return this._xDate;
+			}
+			set
+			{
+				if ((this._xDate != value))
+				{
+					this._xDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contentType", DbType="NVarChar(255)")]
+		public string contentType
+		{
+			get
+			{
+				return this._contentType;
+			}
+			set
+			{
+				if ((this._contentType != value))
+				{
+					this._contentType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adType", DbType="NVarChar(255)")]
+		public string adType
+		{
+			get
+			{
+				return this._adType;
+			}
+			set
+			{
+				if ((this._adType != value))
+				{
+					this._adType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_product", DbType="NVarChar(255)")]
+		public string product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				if ((this._product != value))
+				{
+					this._product = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_xMonth", DbType="Int")]
+		public System.Nullable<int> xMonth
+		{
+			get
+			{
+				return this._xMonth;
+			}
+			set
+			{
+				if ((this._xMonth != value))
+				{
+					this._xMonth = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_xYear", DbType="Int")]
+		public System.Nullable<int> xYear
+		{
+			get
+			{
+				return this._xYear;
+			}
+			set
+			{
+				if ((this._xYear != value))
+				{
+					this._xYear = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_xWeek", DbType="Int")]
+		public System.Nullable<int> xWeek
+		{
+			get
+			{
+				return this._xWeek;
+			}
+			set
+			{
+				if ((this._xWeek != value))
+				{
+					this._xWeek = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ad_id", DbType="Int")]
+		public System.Nullable<int> Ad_id
+		{
+			get
+			{
+				return this._Ad_id;
+			}
+			set
+			{
+				if ((this._Ad_id != value))
+				{
+					this._Ad_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subwebsite_id", DbType="Int")]
+		public System.Nullable<int> Subwebsite_id
+		{
+			get
+			{
+				return this._Subwebsite_id;
+			}
+			set
+			{
+				if ((this._Subwebsite_id != value))
+				{
+					this._Subwebsite_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Product_id", DbType="Int")]
+		public System.Nullable<int> Product_id
+		{
+			get
+			{
+				return this._Product_id;
+			}
+			set
+			{
+				if ((this._Product_id != value))
+				{
+					this._Product_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SecondaryBrand_id", DbType="Int")]
+		public System.Nullable<int> SecondaryBrand_id
+		{
+			get
+			{
+				return this._SecondaryBrand_id;
+			}
+			set
+			{
+				if ((this._SecondaryBrand_id != value))
+				{
+					this._SecondaryBrand_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Brand_id", DbType="Int")]
+		public System.Nullable<int> Brand_id
+		{
+			get
+			{
+				return this._Brand_id;
+			}
+			set
+			{
+				if ((this._Brand_id != value))
+				{
+					this._Brand_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BrandOwner_id", DbType="Int")]
+		public System.Nullable<int> BrandOwner_id
+		{
+			get
+			{
+				return this._BrandOwner_id;
+			}
+			set
+			{
+				if ((this._BrandOwner_id != value))
+				{
+					this._BrandOwner_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subindustry_id", DbType="Int")]
+		public System.Nullable<int> Subindustry_id
+		{
+			get
+			{
+				return this._Subindustry_id;
+			}
+			set
+			{
+				if ((this._Subindustry_id != value))
+				{
+					this._Subindustry_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SecondaryBrandOwner_id", DbType="Int")]
+		public System.Nullable<int> SecondaryBrandOwner_id
+		{
+			get
+			{
+				return this._SecondaryBrandOwner_id;
+			}
+			set
+			{
+				if ((this._SecondaryBrandOwner_id != value))
+				{
+					this._SecondaryBrandOwner_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdType_id", DbType="Int")]
+		public System.Nullable<int> AdType_id
+		{
+			get
+			{
+				return this._AdType_id;
+			}
+			set
+			{
+				if ((this._AdType_id != value))
+				{
+					this._AdType_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adTypeGroup", DbType="NVarChar(255)")]
+		public string adTypeGroup
+		{
+			get
+			{
+				return this._adTypeGroup;
+			}
+			set
+			{
+				if ((this._adTypeGroup != value))
+				{
+					this._adTypeGroup = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isAutopromotion", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string isAutopromotion
+		{
+			get
+			{
+				return this._isAutopromotion;
+			}
+			set
+			{
+				if ((this._isAutopromotion != value))
+				{
+					this._isAutopromotion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subIndustry2", DbType="NVarChar(255)")]
+		public string subIndustry2
+		{
+			get
+			{
+				return this._subIndustry2;
+			}
+			set
+			{
+				if ((this._subIndustry2 != value))
+				{
+					this._subIndustry2 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subIndustry3", DbType="NVarChar(255)")]
+		public string subIndustry3
+		{
+			get
+			{
+				return this._subIndustry3;
+			}
+			set
+			{
+				if ((this._subIndustry3 != value))
+				{
+					this._subIndustry3 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subIndustry4", DbType="NVarChar(255)")]
+		public string subIndustry4
+		{
+			get
+			{
+				return this._subIndustry4;
+			}
+			set
+			{
+				if ((this._subIndustry4 != value))
+				{
+					this._subIndustry4 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adURL", DbType="NVarChar(255)")]
+		public string adURL
+		{
+			get
+			{
+				return this._adURL;
+			}
+			set
+			{
+				if ((this._adURL != value))
+				{
+					this._adURL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adSize", DbType="NVarChar(255)")]
+		public string adSize
+		{
+			get
+			{
+				return this._adSize;
+			}
+			set
+			{
+				if ((this._adSize != value))
+				{
+					this._adSize = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_topPublisherForCost", DbType="NVarChar(255)")]
+		public string topPublisherForCost
+		{
+			get
+			{
+				return this._topPublisherForCost;
+			}
+			set
+			{
+				if ((this._topPublisherForCost != value))
+				{
+					this._topPublisherForCost = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cost", DbType="Float")]
+		public System.Nullable<double> cost
+		{
+			get
+			{
+				return this._cost;
+			}
+			set
+			{
+				if ((this._cost != value))
+				{
+					this._cost = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cost_gross", DbType="Float")]
+		public System.Nullable<double> cost_gross
+		{
+			get
+			{
+				return this._cost_gross;
+			}
+			set
+			{
+				if ((this._cost_gross != value))
+				{
+					this._cost_gross = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_yearMonth", DbType="VarChar(7)")]
+		public string yearMonth
+		{
+			get
+			{
+				return this._yearMonth;
+			}
+			set
+			{
+				if ((this._yearMonth != value))
+				{
+					this._yearMonth = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ad_idAdType_id", DbType="NVarChar(255)")]
+		public string ad_idAdType_id
+		{
+			get
+			{
+				return this._ad_idAdType_id;
+			}
+			set
+			{
+				if ((this._ad_idAdType_id != value))
+				{
+					this._ad_idAdType_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_impressionType", DbType="VarChar(6) NOT NULL", CanBeNull=false)]
 		public string impressionType
 		{
 			get

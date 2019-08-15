@@ -26,8 +26,8 @@ namespace App_Project
            Properties.Settings.Default.ProjectBaseConnectionString);
         private static DateTime? startDateValue;
         private static DateTime? endDateValue;
-        private static string logicValue;
-        private static string impressionTypeValue;
+        private static string logicValue = "none";
+        private static string impressionTypeValue = "PC";
 
         public DateImpressionView()
         {
@@ -62,6 +62,7 @@ namespace App_Project
         {
             var date = StartDate.SelectedDate;
             SetStartDateValue(date);
+            LogicDates();
         }
 
 
@@ -69,6 +70,7 @@ namespace App_Project
         {
             var date = EndDate.SelectedDate;
             SetEndDateValue(date);
+            LogicDates();
         }
 
         public void LogicDates()
@@ -82,6 +84,7 @@ namespace App_Project
             else if (StartDate.SelectedDate.HasValue && !EndDate.SelectedDate.HasValue)
             {
                 string logic = "start";
+
                 SetLogicValue(logic);
                 ImpressionType();
             }
@@ -118,10 +121,6 @@ namespace App_Project
                     string type = "MOBILE";
                     SetImpressionTypeValue(type);
                 }
-            }
-            else
-            {
-                SetImpressionTypeValue("PC");
             }
         }
 

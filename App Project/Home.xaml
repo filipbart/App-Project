@@ -8,9 +8,8 @@
              Width="1000" Height="640">
     <Grid>
         <Label Content="Home Page" Foreground="White" HorizontalAlignment="Left" Height="39" Margin="10,10,0,0" VerticalAlignment="Top" Width="116" FontSize="20"/>
-        <DataGrid Name="DataGrid" Height="144" Margin="46,197,46,299" />
-        <Button Content="Industry" Click="Show_Industry" Margin="46,434,720,131" />
-        <Button Content="Brand" Click="Show_Brand"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="245" Margin="328,431,0,0" Height="78"/>
-        <Button Content="Date and impression type" Click="Show_DateAndImpressionType"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="245" Margin="632,431,0,0" Height="78"/>
+        <DataGrid Name="DataGrid" ItemsSource="{Binding}"  Height="144" Margin="46,197,46,299" />
+        <Button Content="Podgląd" Click="ShowResults" Margin="46,434,720,131" />
+        <Button Content="Zapisz" Click="SaveButton" HorizontalAlignment="Left" Height="75" Margin="607,434,0,0" VerticalAlignment="Top" Width="230"/>
     </Grid>
 </UserControl>

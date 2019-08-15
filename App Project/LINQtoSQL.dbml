@@ -37,4 +37,48 @@
       <Column Name="impressionType" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.DbAll" Member="DbAll">
+    <Type Name="DbAll">
+      <Column Name="secondaryBrand" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="secondaryBrandOwner" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="brand" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="subIndustry" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="industry" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="brandOwner" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="subWebsite" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="website" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="publisher" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="impressions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="inscreens" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="xDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="contentType" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="adType" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="product" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="xMonth" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="xYear" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="xWeek" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ad_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Subwebsite_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Product_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SecondaryBrand_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Brand_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BrandOwner_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Subindustry_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SecondaryBrandOwner_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AdType_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="adTypeGroup" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="isAutopromotion" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="subIndustry2" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="subIndustry3" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="subIndustry4" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="adURL" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="adSize" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="topPublisherForCost" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="cost" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="cost_gross" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="yearMonth" Type="System.String" DbType="VarChar(7)" CanBeNull="true" />
+      <Column Name="ad_idAdType_id" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="impressionType" Type="System.String" DbType="VarChar(6) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

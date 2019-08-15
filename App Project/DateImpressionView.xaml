@@ -262,7 +262,7 @@
         <Label Content="End Date:" Foreground="White" HorizontalAlignment="Left" Height="39" Margin="594,192,0,0" VerticalAlignment="Top" Width="193" FontSize="20"/>
         <DatePicker x:Name="StartDate" SelectedDateChanged="StartDate_SelectedDateChanged" HorizontalAlignment="Left" Height="40" Margin="96,237,0,0" VerticalAlignment="Top" Width="201" BorderBrush="{x:Null}" Style="{DynamicResource DatePickerStyle1}"/>
         <DatePicker x:Name="EndDate" SelectedDateChanged="EndDate_SelectedDateChanged" HorizontalAlignment="Left" Height="40" Margin="594,237,0,0" VerticalAlignment="Top" Width="201" BorderBrush="{x:Null}" Style="{DynamicResource DatePickerStyle1}"/>
-        <Grid x:Name="ImpressionTypeGrid" Visibility="Visible" HorizontalAlignment="Left" Height="326" VerticalAlignment="Top" Width="990" Margin="10,314,0,0">
+        <Grid x:Name="ImpressionTypeGrid" Visibility="Collapsed" HorizontalAlignment="Left" Height="326" VerticalAlignment="Top" Width="990" Margin="10,314,0,0">
             <Label Content="Impression Type:" Foreground="White" HorizontalAlignment="Left" Height="39" Margin="96,10,0,0" VerticalAlignment="Top" Width="193" FontSize="20"/>
             <CheckBox x:Name="PC" Content="PC" IsChecked="True" Click="Checkbox_Click" Unchecked="Checkbox_Unchecked" FontSize="24" HorizontalAlignment="Left" Margin="96,76,0,0" VerticalAlignment="Top" Width="193" Height="43" Foreground="White" Style="{DynamicResource CheckBoxStyle1}" />
             <CheckBox x:Name="MOBILE" Content="MOBILE" IsChecked="True" Click="Checkbox_Click" Unchecked="Checkbox_Unchecked" FontSize="24" HorizontalAlignment="Left" Margin="96,124,0,0" VerticalAlignment="Top" Width="193" Height="43" Foreground="White" Style="{DynamicResource CheckBoxStyle1}" />
