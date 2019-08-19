@@ -19,6 +19,7 @@ using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
 using ClosedXML.Excel;
+using System.ComponentModel;
 
 namespace App_Project
 {
@@ -35,10 +36,13 @@ namespace App_Project
         LINQtoSQLDataContext dc = new LINQtoSQLDataContext(
             Properties.Settings.Default.ProjectBaseConnectionString);
 
+        private string _fileName = "PivotCreatorFile";
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public Home()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
         private void ShowResults(object sender, RoutedEventArgs e)
@@ -210,6 +214,24 @@ namespace App_Project
 
         #endregion
 
+        public string FileName
+        {
+            get
+            {
+                return _fileName;
+            }
+            set
+            {
+                _fileName = value;
+                OnPropertyChanged("FileName");
+            }
+        }
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
         public DataTable ToDataTable(System.Data.Linq.DataContext ctx, object query)
         {
             if (query == null)
@@ -250,7 +272,7 @@ namespace App_Project
                 var sourceTableSheet = workbook.Worksheets.Add("DataSource");
                 var SourceTable = sourceTableSheet.Cell(1, 1).InsertTable(dataTableSource, "DataSource",true);
                 var pivotTableSheet = workbook.Worksheets.Add("PivotTable");
-                var PivotTable = pivotTableSheet.PivotTables.AddNew("PivotTable", pivotTableSheet.Cell(1, 1), SourceTable.AsRange());
+                IXLPivotTable PivotTable = pivotTableSheet.PivotTables.AddNew("PivotTable", pivotTableSheet.Cell(1, 1), SourceTable.AsRange());
                 PivotTable.RowLabels.Add("brand");
                 PivotTable.RowLabels.Add("brandOwner");
                 PivotTable.RowLabels.Add("secondaryBrand");
@@ -278,7 +300,7 @@ namespace App_Project
                 PivotTable.Values.Add("impressions");
                 PivotTable.Values.Add("cost");
                 PivotTable.Values.Add("cost_gross");
-                string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/Test.xlsx";
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/" + FileName + ".xlsx";
                 workbook.SaveAs(path);
             }
         }
