@@ -28,7 +28,7 @@ namespace App_Project
     /// </summary>
     public partial class Home : UserControl
     {
-        //test
+        
         IndustryView industryViewClass = new IndustryView();
         BrandView brandViewClass = new BrandView();
         DateImpressionView dateImpressionViewClass = new DateImpressionView();
