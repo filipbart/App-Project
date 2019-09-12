@@ -1,4 +1,5 @@
-﻿using System;
+﻿using App_Project.Helper_Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace App_Project
            Properties.Settings.Default.ProjectBaseConnectionString);
 
         public static List<ChosenBrands> chosenBrands = new List<ChosenBrands>();
+        private static List<ShowChosenBrands> showBrandsList = new List<ShowChosenBrands>();
 
         public BrandView()
         {
@@ -144,9 +146,10 @@ namespace App_Project
                    where br.bOwner_id == brO.BrandOwner_id && br.brandName.Contains(BrandName)
                    select brO.brandOwner;
                 string BrandOwnerName = string.Join(",",data);
-                chosenBrands.Add(new ChosenBrands() { Brand = BrandName, BrandOwner = BrandOwnerName });
+                chosenBrands.Add(new ChosenBrands() { Brand = BrandName, BrandOwner = null });
+                showBrandsList.Add(new ShowChosenBrands() { Brand = BrandName, BrandOwner = BrandOwnerName });
                 ChosenBrandItems.ItemsSource = null;
-                ChosenBrandItems.ItemsSource = chosenBrands.ToList();
+                ChosenBrandItems.ItemsSource = showBrandsList;
             }
         }
 
@@ -157,8 +160,9 @@ namespace App_Project
                 string BrandName = null;
                 string BrandOwnerName = BrandOwnerListBox.SelectedItem.ToString();
                 chosenBrands.Add(new ChosenBrands() { Brand = BrandName, BrandOwner = BrandOwnerName });
+                showBrandsList.Add(new ShowChosenBrands() { Brand = BrandName, BrandOwner = BrandOwnerName });
                 ChosenBrandItems.ItemsSource = null;
-                ChosenBrandItems.ItemsSource = chosenBrands;
+                ChosenBrandItems.ItemsSource = showBrandsList;
             }
         }
 
@@ -168,8 +172,9 @@ namespace App_Project
             if (selectedIndex != -1)
             {
                 chosenBrands.RemoveAt(selectedIndex);
+                showBrandsList.RemoveAt(selectedIndex);
                 ChosenBrandItems.ItemsSource = null;
-                ChosenBrandItems.ItemsSource = chosenBrands;
+                ChosenBrandItems.ItemsSource = showBrandsList;
             }
         }
 

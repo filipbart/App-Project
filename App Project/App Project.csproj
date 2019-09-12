@@ -92,6 +92,7 @@
     <Compile Include="DateImpressionView.xaml.cs">
       <DependentUpon>DateImpressionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper Classes\ShowChosenBrands.cs" />
     <Compile Include="Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
