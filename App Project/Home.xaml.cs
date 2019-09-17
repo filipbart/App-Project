@@ -20,6 +20,7 @@ using System.Data;
 using System.Data.SqlClient;
 using ClosedXML.Excel;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace App_Project
 {
@@ -232,7 +233,7 @@ namespace App_Project
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public DataTable ToDataTable(System.Data.Linq.DataContext ctx, object query)
+        public DataSet ToDataTable(System.Data.Linq.DataContext ctx, object query)
         {
             if (query == null)
             {
@@ -240,26 +241,70 @@ namespace App_Project
             }
 
             IDbCommand cmd = ctx.GetCommand(query as IQueryable);
-            SqlDataAdapter applicationSettingsadapter = new SqlDataAdapter();
-            applicationSettingsadapter.SelectCommand = (SqlCommand)cmd;
-            DataTable dt = new DataTable("sd");
-
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = (SqlCommand)cmd;
+            DataSet ds = new DataSet("sd");
+            ds.EnforceConstraints = false;
             try
             {
                 cmd.Connection.Open();
-                applicationSettingsadapter.FillSchema(dt, SchemaType.Source);
-                applicationSettingsadapter.Fill(dt);
+                adapter.FillSchema(ds, SchemaType.Source);
+                adapter.Fill(ds);
             }
             finally
             {
                 cmd.Connection.Close();
             }
-            return dt;
+            return ds;
+        }
+
+        public DataTable LINQToDataTable<T>(IEnumerable<T> varlist)
+        {
+            DataTable dtReturn = new DataTable();
+
+            // column names 
+            PropertyInfo[] oProps = null;
+
+            if (varlist == null) return dtReturn;
+
+            foreach (T rec in varlist)
+            {
+                if (oProps == null)
+                {
+                    oProps = ((Type)rec.GetType()).GetProperties();
+                    foreach (PropertyInfo pi in oProps)
+                    {
+                        Type colType = pi.PropertyType;
+
+                        if ((colType.IsGenericType) && (colType.GetGenericTypeDefinition()
+                        == typeof(Nullable<>)))
+                        {
+                            colType = colType.GetGenericArguments()[0];
+                        }
+
+                        dtReturn.Columns.Add(new DataColumn(pi.Name, colType));
+                    }
+                }
+
+                DataRow dr = dtReturn.NewRow();
+
+                foreach (PropertyInfo pi in oProps)
+                {
+                    dr[pi.Name] = pi.GetValue(rec, null) == null ? DBNull.Value : pi.GetValue
+                    (rec, null);
+                }
+
+                dtReturn.Rows.Add(dr);
+            }
+            return dtReturn;
         }
 
         private void dataTableCreate(Expression<Func<dbMain_9, bool>> value, string type)
         {
             var data = dc.dbMain_9.Where(value);
+            //DataTable dataTableSource = LINQToDataTable(data);
+            DataSet dataSet = ToDataTable(dc, data);
+            DataTable dataTableSource = dataSet.Tables[0];
             if (dc.DatabaseExists())
             {
                 DataGrid.DataContext = null;
@@ -267,7 +312,6 @@ namespace App_Project
             }
             if(type == "save")
             {
-                DataTable dataTableSource = ToDataTable(dc, data);
                 XLWorkbook workbook = new XLWorkbook();
                 var sourceTableSheet = workbook.Worksheets.Add("DataSource");
                 var SourceTable = sourceTableSheet.Cell(1, 1).InsertTable(dataTableSource, "DataSource",true);
