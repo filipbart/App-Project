@@ -62,7 +62,7 @@
                         </Style>
                     </Button.Style>
                     <StackPanel>
-                        <Image x:Name="Minimize" Source="C:\Users\filip\Desktop\App Project\App Project\Images\minimize.png" Width="15"/>
+                        <Image x:Name="Minimize" Source="/Images/minimize.png" Width="15"/>
                     </StackPanel>
                 </Button>
                 <Button Width="35px" BorderBrush="#FF242425" Name="MaximizeButton">
@@ -86,7 +86,7 @@
                         </Style>
                     </Button.Style>
                     <StackPanel>
-                        <Image x:Name="Maximize" Source="C:\Users\filip\Desktop\App Project\App Project\Images\maximize.png" Width="20px" Height="15px"></Image>
+                        <Image x:Name="Maximize" Source="/Images/maximize.png" Width="20px" Height="15px"></Image>
                     </StackPanel>
                 </Button>
                 <Button Width="35px" BorderBrush="#FF242425" Name="CloseButton">
@@ -110,7 +110,7 @@
                         </Style>
                     </Button.Style>
                     <StackPanel>
-                        <Image x:Name="Close" Source="C:\Users\filip\Desktop\App Project\App Project\Images\close.png" Width="20px" Height="15px"></Image>
+                        <Image x:Name="Close" Source="/Images/close.png" Width="20px" Height="15px"></Image>
                     </StackPanel>
                 </Button>
             </StackPanel>

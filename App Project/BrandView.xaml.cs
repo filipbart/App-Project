@@ -84,19 +84,18 @@ namespace App_Project
             if (BrandName == null)
             {
                 var data =
-                    from br in dc.Brand
-                    from brO in dc.BrandOwner
-                    where br.bOwner_id == brO.BrandOwner_id
-                    select br.brandName;
+                    from br in dc.dict_brandToBrandOwners
+                    orderby br.brand
+                    select br.brand;
                 if (dc.DatabaseExists()) BrandListBox.ItemsSource = data.ToList();
             }
             else
             {
                 var data =
-                    from br in dc.Brand
-                    from brO in dc.BrandOwner
-                    where br.bOwner_id == brO.BrandOwner_id && br.brandName.Contains(BrandName)
-                    select br.brandName;
+                    from br in dc.dict_brandToBrandOwners
+                    where  br.brand.Contains(BrandName)
+                    orderby br.brand
+                    select br.brand;
                 if (dc.DatabaseExists()) BrandListBox.ItemsSource = data.ToList();
             }
         }
@@ -106,14 +105,16 @@ namespace App_Project
             if (BrandNameOwner == null)
             {
                 var data =
-                    from brO in dc.BrandOwner
+                    from brO in dc.dict_brandToBrandOwners
+                    orderby brO.brandOwner
                     select brO.brandOwner;
                 if (dc.DatabaseExists()) BrandOwnerListBox.ItemsSource = data.ToList();
             }
             else
             {
                 var data =
-                    from brO in dc.BrandOwner
+                    from brO in dc.dict_brandToBrandOwners
+                    orderby brO.brandOwner
                     where brO.brandOwner.Contains(BrandNameOwner)
                     select brO.brandOwner;
                 if (dc.DatabaseExists()) BrandOwnerListBox.ItemsSource = data.ToList();
@@ -141,10 +142,9 @@ namespace App_Project
             {
                 string BrandName = BrandListBox.SelectedItem.ToString();
                 var data =
-                   from br in dc.Brand
-                   from brO in dc.BrandOwner
-                   where br.bOwner_id == brO.BrandOwner_id && br.brandName.Contains(BrandName)
-                   select brO.brandOwner;
+                   from br in dc.dict_brandToBrandOwners
+                   where br.brand.Contains(BrandName)
+                   select br.brandOwner;
                 string BrandOwnerName = string.Join(",",data);
                 chosenBrands.Add(new ChosenBrands() { Brand = BrandName, BrandOwner = null });
                 showBrandsList.Add(new ShowChosenBrands() { Brand = BrandName, BrandOwner = BrandOwnerName });

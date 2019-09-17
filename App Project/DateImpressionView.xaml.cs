@@ -33,27 +33,27 @@ namespace App_Project
         {
             InitializeComponent();
             SetPickerDates();
-            generateStringDates();
         }
 
         private void SetPickerDates()
         {
-            var MinDate = (from d in dc.db_main select d.xDate.Value.Date).Min();
-            var MaxDate = (from d in dc.db_main select d.xDate.Value.Date).Max();
+            var MinDate = (from d in dc.db_mains select d.xDate.Value.Date).Min();
+            var MaxDate = (from d in dc.db_mains select d.xDate.Value.Date).Max();
             StartDate.DisplayDate = MinDate;
             StartDate.DisplayDateStart = MinDate;
             StartDate.DisplayDateEnd = MaxDate;
             EndDate.DisplayDate = MaxDate;
             EndDate.DisplayDateStart = MinDate;
             EndDate.DisplayDateEnd = MaxDate;
+            generateStringDates(MinDate, MaxDate);
         }
 
         
 
-        private void generateStringDates()
+        private void generateStringDates(DateTime MinDate, DateTime MaxDate)
         {
-            var MinDate = (from d in dc.db_main select d.xDate.Value.Date).Min().ToString("dd/MM/yyyy");
-            var MaxDate = (from d in dc.db_main select d.xDate.Value.Date).Max().ToString("dd/MM/yyyy");
+            var MinD = MinDate.ToString("dd/MM/yyyy");
+            var MaxD = MaxDate.ToString("dd/MM/yyyy");
             string Dates = MinDate + " - " + MaxDate;
             TextBlockDates.Text = Dates;
         }

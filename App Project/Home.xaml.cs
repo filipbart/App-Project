@@ -59,9 +59,9 @@ namespace App_Project
         private void ShowIndustries(string type)
         {
             List<ChosenItems> chosenItems = industryViewClass.IndustryList;
-            var data = from p in dc.DbAll select p;
-            var inner = PredicateBuilder.False<DbAll>();
-            var outer = PredicateBuilder.True<DbAll>();
+            var data = from p in dc.dbMain_9 select p;
+            var inner = PredicateBuilder.False<dbMain_9>();
+            var outer = PredicateBuilder.True<dbMain_9>();
             if (chosenItems.Any())
             {
                 var firstItem = chosenItems.ElementAt(0);
@@ -73,7 +73,7 @@ namespace App_Project
                 {
                     for (int i = 1; i < chosenItems.Count; i++)
                     {
-                        var outer2 = PredicateBuilder.True<DbAll>();
+                        var outer2 = PredicateBuilder.True<dbMain_9>();
                         var item = chosenItems.ElementAt(i);
                         outer2 = outer2.And(p => item.Industry == p.industry);
                         if (item.SubIndustry != null) outer2 = outer2.And(p => item.SubIndustry == p.subIndustry);
@@ -99,14 +99,14 @@ namespace App_Project
         #endregion
 
         #region Show Brands
-        private void ShowBrands(Expression<Func<DbAll, bool>> value, string type)
+        private void ShowBrands(Expression<Func<dbMain_9, bool>> value, string type)
         {
             List<ChosenBrands> chosenBrands = brandViewClass.BrandsList;
-            var inner = PredicateBuilder.False<DbAll>();
-            var outer = PredicateBuilder.True<DbAll>();
+            var inner = PredicateBuilder.False<dbMain_9>();
+            var outer = PredicateBuilder.True<dbMain_9>();
             if (chosenBrands.Any())
             {
-                var data = from p in dc.DbAll select p;
+                var data = from p in dc.dbMain_9 select p;
                 var ChosenBrands = chosenBrands.Select(c => c.Brand);
                 var ChosenBrandsOwner = chosenBrands.Select(c => c.BrandOwner);
                 ChosenBrands = ChosenBrands.Where(c => c != null);
@@ -152,14 +152,14 @@ namespace App_Project
 
         #region Show Date and ImpressionType
 
-        private void ShowDateAndImpressionType(Expression<Func<DbAll, bool>> value, string type)
+        private void ShowDateAndImpressionType(Expression<Func<dbMain_9, bool>> value, string type)
         {
-            var data = from p in dc.DbAll select p;
+            var data = from p in dc.dbMain_9 select p;
             string logic = dateImpressionViewClass.GetLogicValue();
             DateTime? StartDate = dateImpressionViewClass.GetStartDateValue();
             DateTime? EndDate = dateImpressionViewClass.GetEndDateValue();
-            var inner = PredicateBuilder.False<DbAll>();
-            var outer = PredicateBuilder.True<DbAll>();
+            var inner = PredicateBuilder.False<dbMain_9>();
+            var outer = PredicateBuilder.True<dbMain_9>();
             switch (logic)
             {
                 case "both":
@@ -186,11 +186,11 @@ namespace App_Project
             }
         }
 
-        private void ImpressionTypeAdd(Expression<Func<DbAll, bool>> value, string type)
+        private void ImpressionTypeAdd(Expression<Func<dbMain_9, bool>> value, string type)
         {
             string iType = dateImpressionViewClass.GetImpressionTypeValue();
-            var inner = PredicateBuilder.False<DbAll>();
-            var outer = PredicateBuilder.True<DbAll>();
+            var inner = PredicateBuilder.False<dbMain_9>();
+            var outer = PredicateBuilder.True<dbMain_9>();
             switch (iType)
             {
                 case "both":
@@ -240,15 +240,15 @@ namespace App_Project
             }
 
             IDbCommand cmd = ctx.GetCommand(query as IQueryable);
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = (SqlCommand)cmd;
+            SqlDataAdapter applicationSettingsadapter = new SqlDataAdapter();
+            applicationSettingsadapter.SelectCommand = (SqlCommand)cmd;
             DataTable dt = new DataTable("sd");
 
             try
             {
                 cmd.Connection.Open();
-                adapter.FillSchema(dt, SchemaType.Source);
-                adapter.Fill(dt);
+                applicationSettingsadapter.FillSchema(dt, SchemaType.Source);
+                applicationSettingsadapter.Fill(dt);
             }
             finally
             {
@@ -257,17 +257,17 @@ namespace App_Project
             return dt;
         }
 
-        private void dataTableCreate(Expression<Func<DbAll, bool>> value, string type)
+        private void dataTableCreate(Expression<Func<dbMain_9, bool>> value, string type)
         {
-            var data = dc.DbAll.Where(value);
-            DataTable dataTableSource = ToDataTable(dc, data);
+            var data = dc.dbMain_9.Where(value);
             if (dc.DatabaseExists())
             {
                 DataGrid.DataContext = null;
-                DataGrid.DataContext = dataTableSource.DefaultView;
+                DataGrid.DataContext = data.ToList();
             }
             if(type == "save")
             {
+                DataTable dataTableSource = ToDataTable(dc, data);
                 XLWorkbook workbook = new XLWorkbook();
                 var sourceTableSheet = workbook.Worksheets.Add("DataSource");
                 var SourceTable = sourceTableSheet.Cell(1, 1).InsertTable(dataTableSource, "DataSource",true);

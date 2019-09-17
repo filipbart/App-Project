@@ -72,7 +72,7 @@ namespace App_Project
         private void showIndustryList()
         {
             var data =
-               from i in dc.Industry
+               from i in dc.dict_industries
                group i.industry by i.industry into g
                select g.Key;
             if (dc.DatabaseExists()) IndustryListBox.ItemsSource = data.ToList();
@@ -80,7 +80,7 @@ namespace App_Project
         private void showSubIndustryList(string ind)
         {
             var data =
-                from i in dc.Industry
+                from i in dc.dict_industries
                 where i.industry == ind
                 group i.subIndustry by i.subIndustry into g
                 select g.Key;
@@ -90,7 +90,7 @@ namespace App_Project
         private void showSubIndustryList2(string subind)
         {
             var data =
-                from i in dc.Industry
+                from i in dc.dict_industries
                 where i.subIndustry == subind
                 group i.subIndustry2 by i.subIndustry2 into g
                 select g.Key;
@@ -100,7 +100,7 @@ namespace App_Project
         private void showSubIndustryList3(string subind2)
         {
             var data =
-                from i in dc.Industry
+                from i in dc.dict_industries
                 where i.subIndustry2 == subind2
                 group i.subIndustry3 by i.subIndustry3 into g
                 select g.Key;
