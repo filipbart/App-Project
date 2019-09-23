@@ -107,10 +107,10 @@
     <Grid>
         <Label Content="Brand" Foreground="White" HorizontalAlignment="Left" Height="39" Margin="10,10,0,0" VerticalAlignment="Top" Width="60" FontSize="20"/>
         <Label Content="Brand" Foreground="White" FontSize="20" HorizontalAlignment="Left" Height="35" Margin="40,84,0,0" VerticalAlignment="Top" Width="97"/>
-        <ListBox x:Name="BrandListBox" Height="189" Margin="40,124,0,0" VerticalAlignment="Top" Width="192" Foreground="White" Background="Transparent" HorizontalAlignment="Left" >
+        <ListBox x:Name="BrandListBox" Height="189" Margin="40,124,0,0" VerticalAlignment="Top" Width="192" Foreground="White" Background="Transparent" HorizontalAlignment="Left" MouseDoubleClick="Brand_Add" >
             <!-- z bazy -->
         </ListBox>
-        <ListBox x:Name="BrandOwnerListBox" Height="207" Margin="40,386,0,0" VerticalAlignment="Top" Width="192" Foreground="White" Background="Transparent" HorizontalAlignment="Left" >
+        <ListBox x:Name="BrandOwnerListBox" Height="207" Margin="40,386,0,0" VerticalAlignment="Top" Width="192" Foreground="White" Background="Transparent" HorizontalAlignment="Left" MouseDoubleClick="BrandOwner_Add" >
             <!-- z bazy -->
         </ListBox>
         <Label Content="Brand Owner" Foreground="White" FontSize="20" HorizontalAlignment="Left" Height="35" Margin="40,346,0,0" VerticalAlignment="Top" Width="127"/>

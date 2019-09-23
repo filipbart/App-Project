@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using App_Project.Helper_Classes;
 
 namespace App_Project
 {
@@ -37,8 +38,8 @@ namespace App_Project
 
         private void SetPickerDates()
         {
-            var MinDate = (from d in dc.db_mains select d.xDate.Value.Date).Min();
-            var MaxDate = (from d in dc.db_mains select d.xDate.Value.Date).Max();
+            var MinDate = Dates.MinDate;
+            var MaxDate = Dates.MaxDate;
             StartDate.DisplayDate = MinDate;
             StartDate.DisplayDateStart = MinDate;
             StartDate.DisplayDateEnd = MaxDate;
@@ -50,10 +51,10 @@ namespace App_Project
 
         
 
-        private void generateStringDates(DateTime MinDate, DateTime MaxDate)
+        private void generateStringDates(DateTime minDate, DateTime maxDate)
         {
-            var MinD = MinDate.ToString("dd/MM/yyyy");
-            var MaxD = MaxDate.ToString("dd/MM/yyyy");
+            var MinDate = minDate.ToString("dd/MM/yyyy");
+            var MaxDate = maxDate.ToString("dd/MM/yyyy");
             string Dates = MinDate + " - " + MaxDate;
             TextBlockDates.Text = Dates;
         }
@@ -61,16 +62,32 @@ namespace App_Project
         private void StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             var date = StartDate.SelectedDate;
-            SetStartDateValue(date);
-            LogicDates();
+            if (date > EndDate.SelectedDate && EndDate.SelectedDate != null)
+            {
+                MessageBox.Show("Start date cannot be after the end date");
+                StartDate.SelectedDate = null;
+            }
+            else
+            {
+                SetStartDateValue(date);
+                LogicDates();
+            }
         }
 
 
         private void EndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             var date = EndDate.SelectedDate;
-            SetEndDateValue(date);
-            LogicDates();
+            if (date < StartDate.SelectedDate && StartDate.SelectedDate != null)
+            {
+                MessageBox.Show("End date cannot be before the start date");
+                EndDate.SelectedDate = null;
+            }
+            else
+            {
+                SetEndDateValue(date);
+                LogicDates();
+            }
         }
 
         public void LogicDates()

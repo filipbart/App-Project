@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using App_Project.Helper_Classes;
 
 namespace App_Project
 {
@@ -29,6 +30,7 @@ namespace App_Project
             MaximizeButton.Click += (s, e) => WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
             CloseButton.Click += (s, e) => Close();
             StartPage();
+            getDates();
         }
 
         private void StartPage()
@@ -101,6 +103,17 @@ namespace App_Project
             views.Add(viewName, view);
             return view;
         }
-        
+
+        private void getDates()
+        {
+            LINQtoSQLDataContext dc = new LINQtoSQLDataContext(
+           Properties.Settings.Default.ProjectBaseConnectionString);
+            var data = from d in dc.db_main group d.xDate by d.xDate into date select date.Key;
+            var _MinDate = data.Min().Value.Date;
+            var _MaxDate = data.Max().Value.Date;
+            Dates.MinDate = _MinDate;
+            Dates.MaxDate = _MaxDate;
+        }
+
     }
 }

@@ -87,11 +87,13 @@
     <Compile Include="BrandView.xaml.cs">
       <DependentUpon>BrandView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ChosenBrands.cs" />
-    <Compile Include="ChosenItems.cs" />
     <Compile Include="DateImpressionView.xaml.cs">
       <DependentUpon>DateImpressionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper Classes\ChosenBrands.cs" />
+    <Compile Include="Helper Classes\ChosenItems.cs" />
+    <Compile Include="Helper Classes\Dates.cs" />
+    <Compile Include="Helper Classes\PredicateBuilder.cs" />
     <Compile Include="Helper Classes\ShowChosenBrands.cs" />
     <Compile Include="Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
@@ -106,7 +108,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LINQtoSQL.dbml</DependentUpon>
     </Compile>
-    <Compile Include="PredicateBuilder.cs" />
     <Page Include="BrandView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

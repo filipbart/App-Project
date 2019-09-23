@@ -256,7 +256,7 @@
     </UserControl.Resources>
     <Grid>
         <Label Content="Available dates:" Foreground="White" HorizontalAlignment="Left" Height="39" Margin="96,72,0,0" VerticalAlignment="Top" Width="193" FontSize="20"/>
-        <TextBlock x:Name="TextBlockDates" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="20" Text="" VerticalAlignment="Top" Margin="96,116,0,0" Height="37" Width="691" Foreground="White"/>
+        <TextBlock x:Name="TextBlockDates" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Margin="96,116,0,0" Height="37" Width="691" Foreground="White"/>
         <Label Content="Date and Impression" Foreground="White" HorizontalAlignment="Left" Height="39" Margin="10,10,0,0" VerticalAlignment="Top" Width="193" FontSize="20"/>
         <Label Content="Start Date:" Foreground="White" HorizontalAlignment="Left" Height="39" Margin="96,192,0,0" VerticalAlignment="Top" Width="193" FontSize="20"/>
         <Label Content="End Date:" Foreground="White" HorizontalAlignment="Left" Height="39" Margin="594,192,0,0" VerticalAlignment="Top" Width="193" FontSize="20"/>

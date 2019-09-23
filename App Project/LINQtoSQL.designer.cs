@@ -70,7 +70,7 @@ namespace App_Project
 			}
 		}
 		
-		public System.Data.Linq.Table<db_main> db_mains
+		public System.Data.Linq.Table<db_main> db_main
 		{
 			get
 			{

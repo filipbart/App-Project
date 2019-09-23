@@ -21,6 +21,7 @@ using System.Data.SqlClient;
 using ClosedXML.Excel;
 using System.ComponentModel;
 using System.Reflection;
+using App_Project.Helper_Classes;
 
 namespace App_Project
 {
@@ -302,9 +303,9 @@ namespace App_Project
         private void dataTableCreate(Expression<Func<dbMain_9, bool>> value, string type)
         {
             var data = dc.dbMain_9.Where(value);
-            //DataTable dataTableSource = LINQToDataTable(data);
-            DataSet dataSet = ToDataTable(dc, data);
-            DataTable dataTableSource = dataSet.Tables[0];
+            DataTable dataTableSource = LINQToDataTable(data);
+            //DataSet dataSet = ToDataTable(dc, data);
+            //DataTable dataTableSource = dataSet.Tables[0];
             if (dc.DatabaseExists())
             {
                 DataGrid.DataContext = null;
@@ -315,8 +316,10 @@ namespace App_Project
                 XLWorkbook workbook = new XLWorkbook();
                 var sourceTableSheet = workbook.Worksheets.Add("DataSource");
                 var SourceTable = sourceTableSheet.Cell(1, 1).InsertTable(dataTableSource, "DataSource",true);
+                //IXLTable x;
+                //var sTable = x.AppendData(dataTableSource);
                 var pivotTableSheet = workbook.Worksheets.Add("PivotTable");
-                IXLPivotTable PivotTable = pivotTableSheet.PivotTables.AddNew("PivotTable", pivotTableSheet.Cell(1, 1), SourceTable.AsRange());
+                IXLPivotTable PivotTable = pivotTableSheet.PivotTables.Add("PivotTable", pivotTableSheet.Cell(1, 1), SourceTable.AsRange());
                 PivotTable.RowLabels.Add("brand");
                 PivotTable.RowLabels.Add("brandOwner");
                 PivotTable.RowLabels.Add("secondaryBrand");
@@ -345,6 +348,7 @@ namespace App_Project
                 PivotTable.Values.Add("cost");
                 PivotTable.Values.Add("cost_gross");
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/" + FileName + ".xlsx";
+                workbook.Worksheet("DataSource").Delete();
                 workbook.SaveAs(path);
             }
         }

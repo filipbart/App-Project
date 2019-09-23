@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App_Project
+namespace App_Project.Helper_Classes
 {
     public class ChosenBrands
     {
